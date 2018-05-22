@@ -1,5 +1,7 @@
 import axios from 'axios'
 
+export const IMG_PATH = 'http://localhost:8360/'
+
 export const ERR_OK = 0
 
 export function signIn(form) {

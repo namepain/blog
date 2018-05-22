@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import { createList, createEdit } from 'common/js/createComponent'
-
 Vue.use(Router)
 
 export default new Router({
@@ -23,7 +21,8 @@ export default new Router({
         {
           path: '/',
           name: 'main',
-          component: () => import('../components/Dashboard')
+          redirect: '/post/list'
+          // component: () => import('../components/Dashboard')
         }
       ]
     },
@@ -34,12 +33,12 @@ export default new Router({
         {
           path: 'list',
           name: 'postList',
-          component: createList('post')
+          component: () => import('../components/post/PostList')
         },
         {
           path: 'create/:id?',
           name: 'postCreate',
-          component: () => import('../components/post/post')
+          component: () => import('../components/post/PostView')
         }
       ]
     },
@@ -50,12 +49,12 @@ export default new Router({
         {
           path: 'list',
           name: 'cateList',
-          component: createList('cate')
+          component: () => import('../components/cate/CateList')
         },
         {
           path: 'create/:id?',
           name: 'cateCreate',
-          component: createEdit('cate')
+          component: () => import('../components/cate/CateEdit')
         }
       ]
     },
@@ -66,12 +65,12 @@ export default new Router({
         {
           path: 'list',
           name: 'tagList',
-          component: createList('tag')
+          component: () => import('../components/tag/TagList')
         },
         {
           path: 'create/:id?',
           name: 'tagCreate',
-          component: createEdit('tag')
+          component: () => import('../components/tag/TagEdit')
         }
       ]
     }

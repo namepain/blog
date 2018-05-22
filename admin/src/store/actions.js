@@ -1,6 +1,10 @@
 import { createGet, createDelete, createPost, createPatch, ERR_OK } from 'api'
 
 export default {
+  'GET'({ commit, state }, { model, query }) {
+    return createGet(model, {})
+  },
+
   'GET_LIST'({ commit, state }, { model, query }) {
     if (!model) {
       return false
