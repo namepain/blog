@@ -78,8 +78,8 @@ export default {
       prev[curr.prop] = curr.default || ''
       return prev
     }
-    let form = this.options.leftItems.reduce(fn, {})
-    form = this.options.rightItems.reduce(fn, form)
+    let form = options.leftItems.reduce(fn, {})
+    form = options.rightItems.reduce(fn, form)
 
     let hasTemSave = !this.$route.params.id
     return {

@@ -74,37 +74,5 @@ export default new Router({
         }
       ]
     }
-    // {
-    //   path: '/',
-    //   name: 'signIn',
-    //   component: () => import('../components/SignIn')
-    // },
-    // {
-    //   path: '/admin',
-    //   name: 'admin',
-    //   component: () => import('../components/Admin'),
-    //   children: [
-    //     {
-    //       path: 'userEdit',
-    //       component: () => import('../components/userEdit')
-    //     },
-    //     {
-    //       path: 'post',
-    //       component: () => import('../components/post/Post')
-    //     },
-    //     {
-    //       path: 'cate',
-    //       component: () => import('../components/cate/CateList')
-    //     },
-    //     {
-    //       path: 'tag',
-    //       component: () => import('../components/tag/TagList')
-    //     },
-    //     {
-    //       path: 'system',
-    //       component: () => import('../components/system/System')
-    //     }
-    //   ]
-    // }
   ]
 })
