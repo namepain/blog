@@ -1,7 +1,11 @@
+import Axios from 'axios'
+
 // import axios from 'axios'
 const data = require('./data.json')
 
-export default {
+const prefix = 'http://localhost:8360'
+
+export const api = {
   fetch: (model, query) => {
     // const target = `/${model}`
 
@@ -23,4 +27,20 @@ export default {
       }, 20)
     })
   }
+}
+
+export function getPost(query = {}) {
+  return Axios.get(`${prefix}/post/getByPage`, {
+    params: query
+  }).then(res => {
+    return res.data.data
+  })
+}
+
+export function getBlog(query) {
+  return Axios.get(`${prefix}/post/getBlog`, {
+    params: query
+  }).then(res => {
+    return res.data.data
+  })
 }

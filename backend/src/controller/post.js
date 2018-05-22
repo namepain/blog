@@ -49,6 +49,28 @@ module.exports = class extends Base {
     return this.success(result)
   }
 
+  // get blog (prev, next)
+  async getBlogAction() {
+    const pathName = this.get('pathName')
+    const blog = await this.model('post').where({
+      pathName: pathName
+    }).select()
+    if (!blog || !blog.length) {
+      return this.fail('路径错误, 找不到文章！！')
+    }
+    const prev = await this.model('post').where(
+      `createdAt <= '${blog[0].createdAt}' and id != ${blog[0].id}`
+    ).order('createdAt desc').limit(1).getField('title, pathName', true)
+    const next = await this.model('post').where(
+      `createdAt >= '${blog[0].createdAt}' and id != ${blog[0].id}`
+    ).order('createdAt asc').limit(1).getField('title, pathName', true)
+    return this.success({
+      blog: blog,
+      prev: prev,
+      next: next
+    })
+  }
+
   // get Archives
   async getArchivesAction() {
     const list = await this.model('post').getArchives()

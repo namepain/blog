@@ -1,9 +1,10 @@
 
-import api from '../api'
+import { api, getPost } from '../api'
 
 export default {
-  FETCH_ITEMS: ({ commit, state }, { model, query, callback }) => {
-    return api.fetch(model, query).then(items => {
+  FETCH_ITEMS: ({ commit, state }, { query, callback }) => {
+    // return api.fetch(model, query).then(items => {
+    return getPost(query).then(items => {
       console.log('item是------>' + items)
 
       commit('SET_ITEMS', { items })
