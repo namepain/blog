@@ -6,7 +6,6 @@ const path = require('path');
 module.exports = class extends Base {
   async indexAction() {
     const file = this.file('file');
-    console.log(file)
 
     // let realName = file.name
     let uuidName = think.uuid()
@@ -25,7 +24,7 @@ module.exports = class extends Base {
       type: file.type,
       mtime: file.lastModifiedDate
     })
-    console.log('-------------downloadPath--------------->' + downloadPath)
+    // console.log('-------------downloadPath--------------->' + downloadPath)
     // await rename(file.path, filepath)
   }
 };
