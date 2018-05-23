@@ -59,13 +59,13 @@ module.exports = class extends Base {
       return this.fail('路径错误, 找不到文章！！')
     }
     const prev = await this.model('post').where(
-      `createdAt <= '${blog[0].createdAt}' and id != ${blog[0].id}`
-    ).order('createdAt desc').limit(1).getField('title, pathName', true)
-    const next = await this.model('post').where(
       `createdAt >= '${blog[0].createdAt}' and id != ${blog[0].id}`
     ).order('createdAt asc').limit(1).getField('title, pathName', true)
+    const next = await this.model('post').where(
+      `createdAt <= '${blog[0].createdAt}' and id != ${blog[0].id}`
+    ).order('createdAt desc').limit(1).getField('title, pathName', true)
     return this.success({
-      blog: blog,
+      blog: blog[0],
       prev: prev,
       next: next
     })

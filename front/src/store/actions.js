@@ -1,5 +1,5 @@
 
-import { api, getPost } from '../api'
+import { getPost, getBlog, getArchives, getTags } from '../api'
 
 export default {
   FETCH_ITEMS: ({ commit, state }, { query, callback }) => {
@@ -9,25 +9,14 @@ export default {
 
       commit('SET_ITEMS', { items })
       callback && callback()
-      // if (state.totalPage === -1) {
-      //   return api.fetch(model, {
-      //     conditions: {
-      //       type: 'post',
-      //       isPublic: true
-      //     },
-      //     count: 1
-      //   }).then(totalPage => {
-      //     commit('SET_PAGES', {
-      //       totalPage: Math.ceil(totalPage / 10)
-      //     })
-      //   })
-      // }
       return Promise.resolve()
     })
   },
-  FETCH_BLOG: ({ commit, state, dispatch }, { model, query, callback }) => {
-    return api.fetch(model, query).then(blog => {
-      commit('SET_BLOG', { blog })
+  FETCH_BLOG: ({ commit, state, dispatch }, { query, callback }) => {
+    return getBlog(query).then(res => {
+      commit('SET_BLOG', { blog: res.blog })
+      commit('SET_PREV', { prev: res.prev })
+      commit('SET_NEXT', { next: res.next })
 
       callback && callback()
 
@@ -35,14 +24,14 @@ export default {
     })
   },
   FETCH_ARCHIVES: ({ commit, state, dispatch }, { model, callback }) => {
-    return api.fetch(model).then(archives => {
+    return getArchives().then(archives => {
       commit('SET_ARCHIVES', {archives})
       callback && callback()
       return Promise.resolve()
     })
   },
   FETCH_TAGS: ({ commit, state, dispatch }, { model, callback }) => {
-    return api.fetch(model).then(tags => {
+    return getTags().then(tags => {
       commit('SET_TAGS', { tags })
       callback && callback()
       return Promise.resolve()

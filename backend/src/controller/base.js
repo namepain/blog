@@ -11,5 +11,7 @@ module.exports = class extends think.Controller {
       this.fail('请登录后再操作！！')
       return false;
     }
+
+    this.header('Access-Control-Allow-Origin', '*')
   }
 };

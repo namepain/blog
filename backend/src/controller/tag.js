@@ -56,4 +56,11 @@ module.exports = class extends Base {
     this.get('id', post.id)
     return this.findByIdAction()
   }
+
+  // get Tags count
+  async getTagsAction() {
+    const result = await this.model('tag').getTagsCount()
+    console.log(result)
+    return this.success(result)
+  }
 };
