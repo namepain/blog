@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export const IMG_PATH = 'http://localhost:8360/'
+export const IMG_PATH = '/api' // 'http://localhost:8360/'
 
 export const ERR_OK = 0
 

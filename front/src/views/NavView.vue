@@ -2,7 +2,7 @@
   <nav class="nav-wrapper">
     <div class="profile">
       <div class="avatar">
-        <img src="../../public/logo-48.png" width="140" height="140">
+        <img src="../../public/logo.jpg" width="140" height="140">
       </div>
       <h2 class="name">点蚊子熏烟</h2>
     </div>
