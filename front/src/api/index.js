@@ -1,6 +1,6 @@
 import Axios from 'axios'
 
-const prefix = 'http://127.0.0.1:8360'
+const prefix = '/proxyPrefix'
 
 export function getPost(query = {}) {
   return Axios.get(`${prefix}/post/getByPage`, {

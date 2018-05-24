@@ -23,7 +23,7 @@
 
     <el-dialog title="图片上传" :visible.sync="isUploadShow" width="30%">
       <el-upload
-        action="/api/upload"
+        action="/proxyPrefix/upload"
         drag
         :on-success="handleSuccess"
         :on-error="handleError"
