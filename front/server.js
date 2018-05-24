@@ -103,7 +103,14 @@ function render (req, res) {
     if (err) {
       return handleError(err)
     }
-    res.send(html)
+    const {
+      title, link, meta
+    } = context.meta.inject()
+
+    const metaData = `${title.text()}${meta.text()}${link.text()}`
+    const chunk = html.replace('<title></title>', metaData)
+
+    res.send(chunk)
     if (!isProd) {
       console.log(`whole request: ${Date.now() - s}ms`)
     }

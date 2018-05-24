@@ -85,6 +85,20 @@ module.exports = class extends Base {
     return this.success(obj)
   }
 
+  // get By Tag
+  async getBytagAction() {
+    const tagName = this.get('tagName')
+    const postIdArr = await this.model('post').getPostIdBytagName(tagName)
+    const postIds = postIdArr.reduce((prev, curr) => {
+      prev.push(curr.post_id)
+      return prev
+    }, [])
+    const result = await this.model('post')
+      .where({id: ['in', postIds]})
+      .select({field: 'title, summary, createdAt, pathName'})
+    return this.success(result)
+  }
+
   // patch post
   async patchAction() {
     const post = this.post()

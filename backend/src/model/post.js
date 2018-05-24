@@ -34,4 +34,12 @@ module.exports = class extends think.Model {
       })
     return list
   }
+
+  async getPostIdBytagName(tagName) {
+    const list = await this.query(`
+      select a.post_id from think_post_tag a join think_tag b on a.tag_id=b.id
+      where b.name='${tagName}'
+    `)
+    return list
+  }
 };

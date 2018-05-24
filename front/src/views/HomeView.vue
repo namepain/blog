@@ -3,6 +3,7 @@
     <blog-summary v-for="(item, index) in items" :key="index"
                   :article="item"
     ></blog-summary>
+    <h1 v-if="!items || !items.length" class="noArticle">还没开张哦~</h1>
   </div>
 </template>
 
@@ -24,3 +25,9 @@ export default {
   }
 }
 </script>
+
+<style lang="stylus" scoped>
+.noArticle
+  padding 20px
+  text-align center
+</style>

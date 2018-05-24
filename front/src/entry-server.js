@@ -12,6 +12,9 @@ export default context => {
     const s = isDev && Date.now()
     const { app, router, store } = createApp()
 
+    const meta = app.$meta() // here
+    context.meta = meta // and here
+
     const { url } = context
     const { fullPath } = router.resolve(url).route
 

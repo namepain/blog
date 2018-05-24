@@ -51,6 +51,18 @@
 
 <script>
 export default {
+  metaInfo() {
+    return {
+      title: '点蚊子熏烟',
+      titleTemplate: `%s - blog`,
+      meta: [
+        { name: 'charset', content: 'UTF-8' },
+        { name: 'description', content: '一个vue ssr博客' },
+        { name: 'keywords', content: '前端,Vue,服务端渲染,thinkjs' },
+        { name: 'viewport', content: 'width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no' }
+      ]
+    }
+  }
 }
 </script>
 
@@ -79,7 +91,7 @@ export default {
   .link-list
     margin-top 20px
     .link-item
-      padding-left 50px
+      padding-left 10px
       height 45px
       line-height 45px
       font-size 0px

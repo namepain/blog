@@ -1,9 +1,8 @@
 
-import { getPost, getBlog, getArchives, getTags } from '../api'
+import { getPost, getBlog, getArchives, getTags, getBytag } from '../api'
 
 export default {
   FETCH_ITEMS: ({ commit, state }, { query, callback }) => {
-    // return api.fetch(model, query).then(items => {
     return getPost(query).then(items => {
       console.log('item是------>' + items)
 
@@ -23,16 +22,23 @@ export default {
       return Promise.resolve()
     })
   },
-  FETCH_ARCHIVES: ({ commit, state, dispatch }, { model, callback }) => {
+  FETCH_ARCHIVES: ({ commit, state, dispatch }, { callback }) => {
     return getArchives().then(archives => {
       commit('SET_ARCHIVES', {archives})
       callback && callback()
       return Promise.resolve()
     })
   },
-  FETCH_TAGS: ({ commit, state, dispatch }, { model, callback }) => {
+  FETCH_TAGS: ({ commit, state, dispatch }, { callback }) => {
     return getTags().then(tags => {
       commit('SET_TAGS', { tags })
+      callback && callback()
+      return Promise.resolve()
+    })
+  },
+  FETCH_TAG_ITEMS: ({ commit, state }, { query, callback }) => {
+    return getBytag(query).then(items => {
+      commit('SET_ITEMS', { items })
       callback && callback()
       return Promise.resolve()
     })

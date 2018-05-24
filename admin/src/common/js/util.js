@@ -60,6 +60,6 @@ export function removeLocalData(key, table) {
   let obj = localStorage[table] && JSON.parse(localStorage[table])
   if (typeof obj === 'object') {
     delete obj[key]
+    localStorage[table] = JSON.stringify(obj)
   }
-  localStorage[table] = JSON.stringify(obj)
 }
