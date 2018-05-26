@@ -7,10 +7,10 @@
     <h1 class="title">{{ blog.title }}</h1>
     <div class="entry-content" v-html="blog.content"></div>
   </article>
-  <nav class=pagination>
+  <nav class=pagination v-if="blog.pathName !== 'about'">
     <router-link v-if="prev && prev.pathName"
       :to="{name:'post', params: {pathName: prev.pathName }}" class="prev">&laquo; {{prev.title }}</router-link>
-    <router-link v-if="next && next.pathName"
+    <router-link v-if="next && next.pathName && next.pathName !== 'about'"
       :to="{name:'post', params: {pathName: next.pathName }}" class="next">{{next.title }} &raquo;</router-link>
   </nav>
 </div>
@@ -37,6 +37,13 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+.main
+  position: relative
+  .pagination
+    position: absolute;
+    left: 40px;
+    right: 40px;
+    bottom: 5px;
 .next
   float right
 </style>

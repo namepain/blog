@@ -3,7 +3,8 @@
     <el-menu default-active="1" class="el-menu-demo" mode="horizontal" @select="handleSelect">
       <el-menu-item index="1">加粗</el-menu-item>
       <el-menu-item index="2">斜体</el-menu-item>
-      <el-menu-item index="3">引用</el-menu-item>
+      <!-- <el-menu-item index="3">引用</el-menu-item> -->
+      <el-menu-item index="9">链接</el-menu-item>
       <el-menu-item index="4">代码段</el-menu-item>
       <el-submenu index="5">
         <template slot="title">插入图片</template>
@@ -101,6 +102,9 @@ export default {
           case '8':
             this.mode = 'toc'
             break
+          case '9':
+            this._insertRef()
+            break
         }
       } else if (keyPath.length === 2) {
         switch (key) {
@@ -187,6 +191,9 @@ export default {
           message: '已取消插入图片链接'
         })
       })
+    },
+    _insertRef() {
+      this._preInputText('<a href="" target="_blank"> 外链 </a>', 1, 5)
     },
     _insertMore() {
       this._preInputText('<!--more-->', 12, 12)
