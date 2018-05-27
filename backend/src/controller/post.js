@@ -76,7 +76,7 @@ module.exports = class extends Base {
     const list = await this.model('post').getArchives()
     let obj = {}
     list.forEach((item) => {
-      let key = think.datetime(item.createdAt, 'YYYY年MM月')
+      let key = think.datetime(new Date(item.createdAt), 'YYYY年MM月')
       if (!obj[key]) {
         obj[key] = []
       }
