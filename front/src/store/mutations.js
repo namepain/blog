@@ -1,5 +1,11 @@
 
 export default {
+  SET_PAGE: (state, { page }) => {
+    state.page = page
+  },
+  SET_TOTAL: (state, { total }) => {
+    state.total = total
+  },
   SET_ITEMS: (state, { items }) => {
     state.items = items
   },

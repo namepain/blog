@@ -2,32 +2,34 @@
   <nav class="nav-wrapper">
     <div class="profile">
       <div class="avatar">
-        <img src="../../public/logo.jpg" width="140" height="140">
+        <router-link to="/">
+          <img src="../../public/logo.jpg" width="140" height="140" alt="点蚊子熏烟" title="点蚊子熏烟">
+        </router-link>
       </div>
       <h2 class="name">点蚊子熏烟</h2>
     </div>
     <ul class="link-list">
       <li class="link-item">
         <router-link to="/">
-          <i class="iconfont icon-home"></i>
+          <i class="iconfont icon-home" title="首页"></i>
           <span>首页</span>
         </router-link>
       </li>
       <li class="link-item">
         <router-link to="/archives">
-          <i class="iconfont icon-archive"></i>
+          <i class="iconfont icon-archive" title="归档"></i>
           <span>归档</span>
         </router-link>
       </li>
       <li class="link-item">
         <router-link to="/tags">
-          <i class="iconfont icon-tags"></i>
+          <i class="iconfont icon-tags" title="标签"></i>
           <span>标签</span>
         </router-link>
       </li>
       <li class="link-item">
         <router-link to="/about">
-          <i class="iconfont icon-user"></i>
+          <i class="iconfont icon-user" title="关于"></i>
           <span>关于</span>
         </router-link>
       </li>
@@ -40,10 +42,10 @@
     </ul>
     <div class="buttons">
       <a href="https://github.com/namepain" target="_blank" class="button github">
-        <i class="iconfont icon-github-v"></i>
+        <i class="iconfont icon-github-v" title="github"></i>
       </a>
       <a href="mailto:18086514402@163.com" class="button email">
-        <i class="iconfont icon-mail"></i>
+        <i class="iconfont icon-mail" title="email"></i>
       </a>
     </div>
   </nav>
@@ -75,6 +77,7 @@ export default {
   width 250px
   background #202020!important
   color #999
+  z-index 99
   a
     color #999
   .profile

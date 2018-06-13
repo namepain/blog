@@ -2,3 +2,61 @@
 @import "./icon"
 @import "./base"
 @import "./article"
+
+@media screen and (max-width: 768px){
+  #app nav.nav-wrapper {
+    -webkit-transition: -webkit-transform .2s cubic-bezier(.4, .01, .165, .99);
+    transition: all .2s cubic-bezier(.4, .01, .165, .99), -webkit-transform .2s cubic-bezier(.4, .01, .165, .99);
+    left: -100%;
+  }
+  #app {
+    margin: 0px !important;
+  }
+  #app header.header {
+    display: block!important;
+  }
+  #app {
+    padding-top: 50px!important;  
+  }
+}
+
+@media screen and (max-width: 1024px) and (min-width: 769px) {
+  #app nav.nav-wrapper {
+    -webkit-transition: -webkit-transform .2s cubic-bezier(.4, .01, .165, .99);
+    transition: all .2s cubic-bezier(.4, .01, .165, .99), -webkit-transform .2s cubic-bezier(.4, .01, .165, .99);
+    width: 75px;
+  }
+
+  #app {
+    margin-left: 75px!important  
+  }
+
+  .nav-wrapper .avatar img {
+    width: 40px
+    height: 40px  
+  }
+  .nav-wrapper .name {
+    display: none;  
+  }
+  .nav-wrapper .link-list, .nav-wrapper .link-item {
+    padding: 0!important
+    text-align: center
+  }
+  .nav-wrapper .link-list .link-item i.iconfont {
+    display: block!important
+    margin: 0 auto!important
+  }
+  .nav-wrapper .link-list span{
+    display: none!important
+  }
+
+  .nav-wrapper .buttons {
+    padding: 0!important
+    margin: 0!important
+  }
+  .nav-wrapper .buttons a {
+    display: block!important
+    margin: 0!important
+    text-align: center
+  }
+}

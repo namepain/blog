@@ -1,4 +1,10 @@
 export default {
+  page (state) {
+    return state.page
+  },
+  total (state) {
+    return state.total
+  },
   items (state) {
     return state.items
   },

@@ -10,6 +10,7 @@ const HOME = () => import('../views/HomeView.vue')
 export function createRouter () {
   return new Router({
     mode: 'history',
+    scrollBehavior: () => ({x: 0, y: 0}),
     fallback: false,
     routes: [
       { path: '/', component: HOME },

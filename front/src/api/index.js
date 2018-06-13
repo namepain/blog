@@ -1,6 +1,7 @@
+import api from 'create-api'
 import Axios from 'axios'
 
-const prefix = '/proxyPrefix'
+const prefix = api.host // '/proxyPrefix'
 
 export function getPost(query = {}) {
   return Axios.get(`${prefix}/post/getByPage`, {

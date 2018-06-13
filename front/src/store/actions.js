@@ -3,10 +3,10 @@ import { getPost, getBlog, getArchives, getTags, getBytag } from '../api'
 
 export default {
   FETCH_ITEMS: ({ commit, state }, { query, callback }) => {
-    return getPost(query).then(items => {
-      console.log('item是------>' + items)
-
-      commit('SET_ITEMS', { items })
+    return getPost(query).then(data => {
+      commit('SET_ITEMS', { items: data.items })
+      commit('SET_TOTAL', { total: parseInt(data.total) })
+      commit('SET_PAGE', { page: parseInt(data.page) })
       callback && callback()
       return Promise.resolve()
     })

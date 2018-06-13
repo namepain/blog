@@ -46,7 +46,8 @@ module.exports = class extends Base {
       .page(param.page || 1, param.limit || 10)
       .order('createdAt desc')
       .select()
-    return this.success(result)
+    const total = await this.model('post').count()
+    return this.success({items: result, total: total, page: param.page || 1})
   }
 
   // get blog (prev, next)

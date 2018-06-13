@@ -9,6 +9,7 @@ Vue.use(Vuex)
 export function createStore () {
   return new Vuex.Store({
     state: {
+      total: 0,
       page: 1,
       items: [],
       archives: {},
