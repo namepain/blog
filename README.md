@@ -3,7 +3,7 @@ Vue SSR blog
 
 本项目前端使用 Vue SSR 技术 ，后台管理界面使用 element-ui 组件库，后端使用 node 框架 thinkJS 提供数据服务，数据库使用了 mysql 存储。
 
-[项目预览地址点这里](http://curryadd.com/)
+<a href="http://curryadd.com/" target="_blank">项目预览地址点这里</a>
 
 本地开发需要起三个服务
   - 前端 Vue SSR 起 node 服务在 8080 端口
