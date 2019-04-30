@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+  <div id="app">
+    <p>
+      the count is 
+      {{ $store.state.count }}
+    </p>
+  </div>
+
+  <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+  <!-- <script src="https://cdn.bootcss.com/vuex/3.1.0/vuex.js"></script> -->
+  <script type="module">
+    import Vuex from './Vuex.mjs'
+
+    Vue.use(Vuex)
+
+    var store = window.store = new Vuex.Store({
+      state: {
+        count: 0
+      },
+      getters: {
+        count: function(state) {
+          // debugger
+          return state.count
+        }
+      },
+      mutations: {
+        addCount(state, payload) {
+          console.log(this)
+          state.count += payload
+        },
+        minusCount(state, payload) {
+          console.log(this)
+          state.count -= payload
+        }
+      },
+      actions: {
+        addAndMinus(context, payload) {
+          context.commit('addCount', payload)
+          setTimeout(() => {
+            console.log('after 1.5s...')
+            context.commit('minusCount', payload)
+          }, 1500)
+        }
+      }
+    })
+
+    window.app = new Vue({
+      el: '#app',
+      data: {
+        aaa: '1'
+      },
+      store
+    })
+  </script>
+</body>
+</html>

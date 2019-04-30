@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    #app {
+      text-align: center;
+      padding: 200px;
+    }
+  </style>
+</head>
+<body>
+  
+  <div id="app">
+    <router-link to="/">home</router-link>
+    <router-link to="/about">about</router-link>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <router-view></router-view>
+  </div>
+  
+  <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+  <!-- <script src="https://cdn.bootcss.com/vue-router/3.0.6/vue-router.js"></script> -->
+  <!-- <script>
+  
+  Vue.use(VueRouter)
+
+  const router = new VueRouter({
+    // mode: 'history',
+    routes: [
+      { path: '/', component: { template: '<div>home</div>' } },
+      { path: '/about', component: { template: '<div>about</div>' } }
+    ]
+  })
+
+  var app = new Vue({
+    el: '#app',
+    router
+  })
+  
+  </script> -->
+  <script type="module">
+  import VueRouter from './VueRouter.mjs'
+  
+  console.log(VueRouter)
+
+  Vue.use(VueRouter)
+
+  const router = new VueRouter({
+    mode: 'hash',
+    routes: [
+      { path: '/', component: { template: '<div>home</div>' } },
+      { path: '/about', component: { template: '<div>about</div>' } }
+    ]
+  })
+
+  window.app = new Vue({
+    el: '#app',
+    router
+  })
+  </script>
+</body>
+</html>
