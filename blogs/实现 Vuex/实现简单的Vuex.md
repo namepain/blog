@@ -14,7 +14,7 @@
 ## install
 使用 `vuex` 时需要 `Vue.use(Vuex)` 安装插件。`Vue.use` 会调用插件提供的 `install` 方法并传入 `Vue` 对象
 
-```
+```js
 function install(Vue) {
   Vue.mixin({                                                 // mixin 到每个组件的 beforeCreate 钩子
     beforeCreate: function() {
@@ -35,7 +35,7 @@ function install(Vue) {
 ## store
 
 `Vue` 具有现成的数据存储能力，数据响应式能力，可用做存储数据的 `store`
-```
+```js
 class Vuex {
   constructor(options) {
     const {
@@ -64,7 +64,7 @@ class Vuex {
 定义的 `getters` 一般长这样: `state => state.count`
 既然是函数，自然可以通过计算属性来获取了
 
-```
+```js
 initState(state, getters) {
   let computed = {}
   let store = this
@@ -90,7 +90,7 @@ initState(state, getters) {
 ## commit
 
 `commit` 就很简单了，把 `state`, `payload` 参数传入就好了
-```
+```js
 commit(mutationType, payload) {
   this._mutations[mutationType].call(null, this.state, payload)
 }
@@ -99,7 +99,7 @@ commit(mutationType, payload) {
 ## dispatch
 `dispatch` 方法类似 `commit`, 只不过其第一个入参为 `context` 代理对象，上面有 state, commit, dispatch 等功能。
 
-```
+```js
 dispatch(actionType, payload) {
   const context = {
     state: this.state,

@@ -8,7 +8,7 @@
 ## 从创建 vnode 开始
 在 `react/vue` 框架中我们使用 `createElement` 方法创建 `vnode`, 此方法一般接受三个参数: `type, props, children`
 
-```
+```js
 let vdom = createElement('ul', { class: 'list' }, [
   createElement('li', { class: 'list-item' }, '1'),
   createElement('li', { class: 'list-item' }, '2'),
@@ -18,7 +18,7 @@ let vdom = createElement('ul', { class: 'list' }, [
 
 于是我们需要构建一个 `createElement` 方法帮我们创建 `vnode`
 
-```
+```js
 export class Vnode {
   constructor(type, props, children) {
     this.type = type
@@ -35,7 +35,7 @@ export function createElement(...args) {
 ```
 
 同时我们需要一个渲染方法把 `vnode` 渲染到页面上
-```
+```js
 export function render(vdom) {
   let el = document.createElement(vdom.type)      // 根据根节点创建一个 dom 元素
   Object.keys(vdom.props).forEach(prop => {       // 给元素设置 props
@@ -64,7 +64,7 @@ export function render(vdom) {
 - 新节点没有对应的旧节点，新增操作
 - 新节点有对应的旧节点，但索引不一样，同层级移动操作
 
-```
+```js
 // 定义可能的操作
 const ATTRS = 'ATTRS'
 const TEXT = 'TEXT'
@@ -170,7 +170,7 @@ function diffChildren(oldNodes, newNodes, i, patches, currentPatch) {
 
 要给每一个`dom`节点打补丁，需要使用深度优先的方式访问每一个节点，可以根据访问时的索引 来记录节点跟他的 `patch` 补丁的对应关系。
 
-```
+```js
 let allPatches                          // 记录当前 dom 结构及其下 所有补丁
 let index = 0
 
@@ -249,7 +249,7 @@ function doPatch(node, patches) {
 
 至此，一个基本的 `dom diff` 功能算是实现了。测试一下
 
-```
+```js
 // 创建第一个 dom 树
 let vdom = createElement('ul', { class: 'list' }, [
   createElement('li', { class: 'list-item', style: 'color: red', key: 'key1' }, ['1']),

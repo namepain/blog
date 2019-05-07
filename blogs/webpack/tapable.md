@@ -6,7 +6,7 @@
 
 ![tapable](./tapable.png)
 
-```
+```js
 const {
   SyncHook,                     // 同步钩子， 不关心返回值
   SyncBailHook,                 // 同步熔断钩子， 有一个返回 null 则后续不再执行
@@ -23,7 +23,7 @@ const {
 伪代码简单模拟一下几个钩子做的事情，帮助理解
 
 ## SyncHook
-```
+```js
 class SyncHook{
   constructor() {
     this.tasks=[];
@@ -38,7 +38,7 @@ class SyncHook{
 ```
 
 ## SyncBailHook
-```
+```js
 class SyncBailHook{
   constructor() {
     this.tasks=[];
@@ -56,7 +56,7 @@ class SyncBailHook{
 ```
 
 ## SyncWaterfallHook
-```
+```js
 class SyncWaterfallHook{
   constructor() {
     this.tasks=[];
@@ -72,7 +72,7 @@ class SyncWaterfallHook{
 ```
 
 ## SyncLoopHook
-```
+```js
 class SyncLoopHook{
   constructor() {
     this.tasks=[];
@@ -92,7 +92,7 @@ class SyncLoopHook{
 ```
 
 ## AsyncParallelHook
-```
+```js
 class AsyncParallelHook{
   constructor() {
     this.tasks=[];

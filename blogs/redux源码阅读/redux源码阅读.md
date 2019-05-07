@@ -15,7 +15,7 @@
 ## 基本使用
 官方给出示例
 
-```
+```js
 import { createStore } from 'redux'
 
 // reducer, 形式为 (state, action) => state 的纯函数
@@ -71,7 +71,7 @@ time travel, persistence, etc. The only store enhancer that ships with Redux
 
 允许我们使用第三方工具如中间件扩展 `redux`, 非常厉害！
 
-```
+```js
 // src/createStore.js
 export default function createStore(reducer, preloadedState, enhancer) {
 
@@ -156,7 +156,7 @@ export default function createStore(reducer, preloadedState, enhancer) {
 ## combineReducers
 reducer 是一个修改 store 的纯函数，实际使用中一般会有多个 reducer 存在，需要使用 combineReducer 方法组合起来。
 
-```
+```js
 export default function combineReducers(reducers) {
   const reducerKeys = Object.keys(reducers)
   const finalReducers = {}
@@ -218,7 +218,7 @@ export default function combineReducers(reducers) {
 
 我们知道这个 api 接受中间件队列，先看一些 redux-thunk 中间件的源码:
 
-```
+```js
 ({ dispatch, getState }) => next => action => {
   if (typeof action === 'function') {
     return action(dispatch, getState);
@@ -232,7 +232,7 @@ export default function combineReducers(reducers) {
 
 接下来回到 `applyMiddleware` 部分的源码
 
-```
+```js
 export default function applyMiddleware(...middlewares) {           // 接收中间件队列
   return createStore => (...args) => {                              // 返回一个以 createStore 为入参的高阶函数
     const store = createStore(...args)                              // 调用 createStore 初始化全局状态树
@@ -270,7 +270,7 @@ export default function applyMiddleware(...middlewares) {           // 接收中
 
 这里最精髓的自然是 `compose` 函数了
 
-```
+```js
 export default function compose(...funcs) {
   if (funcs.length === 0) {
     return arg => arg
@@ -286,7 +286,7 @@ export default function compose(...funcs) {
 精髓啊！！朋友们！！
 
 `reduce` 方法将一组函数 `[a,b,c]` 挨个包装成高阶函数作为前一个函数的入参，注意了！！当我们执行这个结果时，执行顺序是 `c->b->a`, 我们可以写个示例自己验证下：
-```
+```js
 compose(
 	() => console.log('111'),
 	() => console.log('222'),
@@ -300,7 +300,7 @@ compose(
 
 那如果我们希望这一组函数的执行顺序按照传入的顺序执行怎么办？高阶函数！
 
-```
+```js
 compose(
 	next => v => { console.log('111' + v), next(v) },
 	next => v => { console.log('222' + v), next(v) },
@@ -322,7 +322,7 @@ compose(
 `redux` 核心归结为几个点：仓库, 发布订阅, 以 `compose` 组合的中间件机制。
 
 下面给各位观众表演一个用 18 行代码实现一个乞丐版 `redux`
-```
+```js
 function createStore(reducer = v => v) {
   let store = {}
   let listeners = []

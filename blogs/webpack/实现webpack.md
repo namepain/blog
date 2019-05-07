@@ -2,7 +2,7 @@
 
 `webpack` 的原理简单理解起来并不复杂，无非是从入口出发递归寻找所有模块，最终将所有依赖打包成一个 `bundle`, 这个 `bundle` 里只有一个立即执行函数，函数体内实现了一个类 `commonjs` 规范的依赖加载器，函数的入参则是由所有的模块组成的键值对。
 
-```
+```js
 (function (modules) {
   var installedModules = {};
   function __webpack_require__(moduleId) {
@@ -55,7 +55,7 @@
   |-webpack.config.js
 ```
 添加基本配置
-```
+```js
 // webpack.config.js
 const path = require('path')
 
@@ -71,7 +71,7 @@ module.exports = {
 
 ## compiler
 新建一个 mypack 项目, 初始化项目, 修改 package.json 的 bin 参数，使其执行 bin/my-pack.js 文件
-```
+```js
 // 命令行执行
 npm init -y
 
@@ -93,7 +93,7 @@ npm link
 npm link pack
 ```
 `my-pack.js` 做的事情非常简单, 加载配置文件, `new` 一个 `Compiler` 类实例用于编译我们的配置文件, 编译后执行构建。
-```
+```js
 #! /usr/bin/env node                      // 告诉系统可以在PATH目录中查找 node 来执行你的脚本文件
 
 // 1 找到 webpack.config.js
@@ -108,7 +108,7 @@ compiler.run()
 
 实现 Compiler 类，保存好传入的配置，并提供 `run` 方法
 
-```
+```js
 class Compiler {
   constructor(config) {
     this.config = config              // 保存
@@ -151,7 +151,7 @@ class Compiler {
 
 这个库可以帮我们解析 `ast` 语法树，配合 `traverse` 库帮我们访问到使用了 `require` 语法的节点，从而可以将此替换成我们需要的 `__webpack_require__` 语法, 最后使用 `generator` 这个库重写生成改造后的代码, 完成代码的转换。
 
-```
+```js
 const t = require('@babel/types')
 const babylon = require('babylon')
 const traverse = require('@babel/traverse').default     // es6 语法
@@ -182,7 +182,7 @@ parse(source, parentPath) {
 
 经过以上几步，代码的转换工作基本搞定，那么还需要把转换后的代码输出出来
 
-```
+```js
 emitFile() {
   // 找到配置的输出文件名
   let main = path.join(this.config.output.path, this.config.output.filename)
@@ -203,7 +203,7 @@ emitFile() {
 ## loader
 loader 的本质就是一个 function, 用于加载指定的文件。
 
-```
+```js
 // webpack.config.js
 module: {
   rules: [
@@ -219,7 +219,7 @@ module: {
 ```
 
 改造 buildModule 读取文件的过程
-```
+```js
 -   let source = fs.readFileSync(modulePath, 'utf-8')
 +   let source = this.getContent(modulePath)
 
@@ -246,7 +246,7 @@ getContent(contentPath) {
 ```
 
 简单的实现 `less-loader` 和 `style-loader`
-```
+```js
 // less loader
 let less = require('less');                               // 使用 less 模块
 function loader(source){
@@ -276,7 +276,7 @@ module.exports = loader;
 `plugin` 一般是一个类，通过 `new` 实例并调用实例的 `apply` 方法传入 `compiler` 实例使其发挥作用
 
 写一个极简的 `plugin`, 添加 `webpack` 配置
-```
+```js
 class P{
   apply(compiler){
     compiler.hooks.emit.tap('emit',function () {
@@ -293,7 +293,7 @@ module.exports = {
 ```
 
 改造 `compiler`
-```
+```js
 let { SyncHook } = require('tapable')
 
 // 改造构造器

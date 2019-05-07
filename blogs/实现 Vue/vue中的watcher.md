@@ -9,7 +9,7 @@
 初始化 vm 实例时的 `watch` 配置, 以对象形式告诉 vue 观察哪些属性。
 
 示例：
-```
+```js
 new Vue({
   data: {
     a: 1,
@@ -54,7 +54,7 @@ vm.a = 2 // => new: 2, old: 1
 ```
 这是 `watch` api 最常见使用方式，定义一个对象，此对象会在 vm 实例初始化时被遍历观察，具体发生在 ```_init``` 方法内部 ```initState(vm)``` 环节, 如下源码，调用 ```initWatch(vm, opts.watch)```
 
-```
+```js
 // src\core\instance\state.js
 export function initState (vm: Component) {
   vm._watchers = []
@@ -108,7 +108,7 @@ function createWatcher (
 Vue 允许我们通过 `$watch` 在代码中命令式的观察属性。
 
 示例：
-```
+```js
 // 键路径
 vm.$watch(
   'a.b.c',                      // 通过以 . 分割的字符串，观察属性里的属性
@@ -137,7 +137,7 @@ vm.$watch(
 可以看到，直接调用 `$watch` 方法命令式观察属性时，配置依旧强大。第一种 `watch` 配置方式能做到的事，此方法也都能做到，更甚于还能观察一个 `function`, 效果类似定义了一个 `computed` 属性。
 
 另外源码中 `$watch` 方法返回一个 `unwatchFn`, 可以让我们随时取消观察！
-```
+```js
 Vue.prototype.$watch = function (
   expOrFn: string | Function,
   cb: any,
@@ -164,7 +164,7 @@ Vue.prototype.$watch = function (
 ```
 
 可以看到，做了一堆参数处理后，最终的实干者是 `Watcher` 类。
-```
+```js
 // src\core\observer\watcher.js
 export default class Watcher {
   constructor (vm: Component, expOrFn: string | Function, cb: Function, options?: ?Object, isRenderWatcher?: boolean) {
@@ -222,7 +222,7 @@ export default class Watcher {
 
 构造器的最后处理好 `getter` ，便根据是否 `lazy` 决定是否立即调用 `get` 方法对 `getter` 求值并完成收集依赖。
 
-```
+```js
 get () {
   pushTarget(this)                      // 将自己挂在 Dep.target 上，以便后续的依赖的属性完成对观察者的收集
   let value
@@ -254,7 +254,7 @@ get () {
 
 值得注意的是：`this.cleanupDeps() ` 方法会在每次求值的时候执行，源码对 get 方法给出的注释是 `// Evaluate the getter, and re-collect dependencies.`
 
-```
+```js
 cleanupDeps () {
   let i = this.deps.length
   while (i--) {
@@ -288,7 +288,7 @@ cleanupDeps () {
 
 ## deep watcher
 当我们配置了 deep 属性时，对该侦听属性第一次 "touch" 求值也就是调用 `watcher` 的 `get` 方法时会递归的侦听他身上的所有属性
-```
+```js
  get () {
   pushTarget(this)
 
@@ -308,7 +308,7 @@ cleanupDeps () {
 ```
 
 同时被侦听的属性发生变化时，会在 `flushSchedulerQueue` 时会调用 `watcher.run` 方法，
-```
+```js
 run () {
   if (this.active) {
     const value = this.get()
@@ -333,7 +333,7 @@ run () {
 
 ## user watcher
 用户创建的 `watcher`, 本质都是通过 $watch() 方法创建, 创建时赋予 `user` 标志 
-```
+```js
 Vue.prototype.$watch = function (
     expOrFn: string | Function,
     cb: any,
@@ -349,7 +349,7 @@ Vue.prototype.$watch = function (
 ## lazy watcher
 定义 computed 属性时会给 `new Watcher()` 传一个 `laze: true`
 
-```
+```js
 const computedWatcherOptions = { lazy: true }
 
 function initComputed (vm: Component, computed: Object) {
@@ -375,7 +375,7 @@ function initComputed (vm: Component, computed: Object) {
 
 之后，根据 `Dep.target` 进行了依赖的收集, 倘若依赖发生变化自然是会调用 `watcher.update` 方法, 此方法内发现倘若时 `lazy watcher`, 则并不执行，而是改变 `dirty` 标志为 `true`, 那么在下次我们需要访问该计算属性的时候，自然会因为 `dirty: true` 而重新执行 `evaluate` 求值了。 所以 `computed` 属性真的很懒，不用它则不计算求值，依赖不改变也不会重新计算求值，从而说明 `computed` 属性很高效！！
 
-```
+```js
 // src\core\instance\state.js: 242
 function createComputedGetter (key) {
   return function computedGetter () {
@@ -427,7 +427,7 @@ update () {
 上文中的分类是根据 Watcher 类构造器中的标志分类，并不完全符合我们对 Vue 的使用体验。
 通过 `ctrl + shift + F` 在源码种查找 `new Watcher` 发现，总共有三处。分别是:
 - `$mount` 方法内部调用 `mountComponent` 函数内部创建 `renderWatcher`
-```
+```js
 // src\core\instance\lifecycle.js: 197
 new Watcher(vm, updateComponent, noop, {
   before () {

@@ -4,7 +4,7 @@
 
 `promise` 维护一个状态机，只可能存在三种状态, 只允许从 `pending -> fulfilled` 或 `pending -> rejected`。
 
-```
+```js
 const PENDING = 'pending'       // 等待完成状态
 const FULFILLED = 'fulfilled'   // 完成状态
 const REJECTED = 'rejected'     // 失败状态
@@ -18,7 +18,7 @@ const REJECTED = 'rejected'     // 失败状态
 - 维护三个状态，状态只有两种流向， `pending -> fulfilled / pending -> rejected`
 - 成功/失败后调用 成功回调/失败回调 队列, 传入成功值/失败原因
 - 立即执行传入的 `excutor(resolve, reject)`, 若报错 直接 `reject`
-```
+```js
 class Promise {
   constructor(excutor) {
     this.status = PENDING                           // Promise 维持一个状态机，只有pending, fulfilled, rejected 三个状态
@@ -59,7 +59,7 @@ class Promise {
 - `onFulfilled/onRejected` 执行也可能报错，需要将错误向后传递，也就是 `reject`
 - `onFulfilled/onRejected` 处理的结果需要被 `resolvePromise` 再处理
 
-```
+```js
 then (onFulfilled, onRejected) {
     // 做一个参数处理，onFullfilled 若不是函数，则变成函数
     onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : value => value
@@ -128,7 +128,7 @@ then (onFulfilled, onRejected) {
 - 防止多次 `reolve/reject`
 - 普通类型直接 `resolve`
 
-```
+```js
 function resolvePromise(promise2, x, resolve, reject) {
   // 循环引用 throw new TypeError()
   if (promise2 === x) {
@@ -167,7 +167,7 @@ function resolvePromise(promise2, x, resolve, reject) {
 
 ## defer 适配
 按照 `promise/A+` 规范提供 `deferred` 适配
-```
+```js
 Promise.deferred = Promise.defer = function() {                   // 提供适配器
   var defer = {}
   defer.promise = new Promise((resolve, reject) => {
@@ -180,7 +180,7 @@ Promise.deferred = Promise.defer = function() {                   // 提供适�
 
 此时核心功能完成，使用官方测试用例测试
 
-```
+```js
 // 安装 promises-aplus-tests 测试库
 npm i -g promises-aplus-tests
 // 测试
@@ -194,7 +194,7 @@ promises-aplus-tests promise.js
 ## catch
 
 catch 方法能够捕获 promise 链传递过来的异常
-```
+```js
 catch(onRejected) {
   return this.then(null, onRejected)
 }
@@ -204,7 +204,7 @@ catch(onRejected) {
 
 此方法能将传入参数转为 `promise`, 若是传入 `promise` 则直接返回
 
-```
+```js
 static resolve(v) {
   if(v instanceof Promise) return v
   return new Promise(resolve => resolve(v))
@@ -214,7 +214,7 @@ static resolve(v) {
 ## Promise.reject
 
 此方法能将传入参数转为失败的 `promise` 实例
-```
+```js
 static reject(r) {
   return new Promise((resolve, reject) => reject(r))
 }
@@ -224,7 +224,7 @@ static reject(r) {
 
 `finally` 方法不管 `promise` 失败还是成功都会执行, 且不会中断 `promise`, 将成功 `value` 或失败的 `reason` 传递下去
 
-```
+```js
 finally(fn) {
   return this.then(
     value => Promise.resolve(fn()).then(() => value),
@@ -236,7 +236,7 @@ finally(fn) {
 ## all
 
 一组 `promise` 都完成才算完成, 且将完成的值作为数组传递下去, 一个失败则 `reject`
-```
+```js
 static all(promises) {
   let i, len = promises.length
   let res = []
@@ -261,7 +261,7 @@ static all(promises) {
 
 一组 promise 赛跑, 有一个 resolve 则算 resolve
 
-```
+```js
 static race(promises) {
   return new Promise((resolve, reject) => {
     promises.forEach(p => {
@@ -278,7 +278,7 @@ static race(promises) {
 
 尝试一段代码，报错则直接 reject
 
-```
+```js
 static try(fn) {
   return new Promise(resolve => resolve(fn()))
 }

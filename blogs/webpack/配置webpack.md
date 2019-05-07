@@ -4,7 +4,7 @@ yarn add webpack webpack-cli -D
 ```
 
 # 基本配置
-```
+```js
 let path = require('path');
 let HtmlWebpackPlugin = require('html-webpack-plugin');
 let MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -104,7 +104,7 @@ module.exports = {
 然而一些实例上的方法如 `Array.prototype.includes` 并不能被 `@babel/runtime` 模拟, 所以我们需要 `@babel/polyfill`，而直接`require('@babel/polyfill')`会完整模拟es5环境增加无需的依赖。此时可配置 `@babel/preset-env` 的 [useBuiltIns](https://new.babeljs.io/docs/en/next/babel-preset-env.html#usebuiltins-usage) 为 `useBuiltIns: 'usage'`。 ( 尝试发现，设置了这个后，代码中都不需要手动 `require('@babel/polyfill')` 引入了，但需要安装依赖 )
 
 参考 [vue-cli 文档](https://cli.vuejs.org/zh/guide/browser-compatibility.html#usebuiltins-usage) 的做法
-```
+```js
 yarn add babel-loader @babel/core @babel/preset-env -D
 
 yarn add @babel/plugin-transform-runtime -D
@@ -136,7 +136,7 @@ yarn add @babel/polyfill
 
 - `expose-loader` 暴漏到 `window` 上
 
-```
+```js
 // import 时使用内联 loader
 import $ from 'expose-loader?$!jquery'
 
@@ -148,7 +148,7 @@ import $ from 'expose-loader?$!jquery'
 }
 ```
 - `providePlugin` 给每个模块提供一个$
-```
+```js
 // 此时模块内可使用 $, window 上没有 $
 new webpack.ProvidePlugin({ // 给每个模块提供一个 $
   $: 'jquery'
@@ -156,7 +156,7 @@ new webpack.ProvidePlugin({ // 给每个模块提供一个 $
 ```
 
 - `html` 内 `script` 引入，模块内引入不打包
-```
+```js
 // webpack 不打包 jQuery
 externals: {
     jquery: "$"
@@ -166,7 +166,7 @@ externals: {
 ## 图片处理
 
 `file-loader` 解析图片成一个单独的图片文件，`url-loader` 将图片文件转为 `base64` 格式
-```
+```js
 {
   test:/\.(png|jpg|gif)$/,
   // 做一个限制 当我们的图片 小于多少k的时候 用base64 来转化
@@ -182,7 +182,7 @@ externals: {
 }
 ```
 一种特殊情况，在 html 文件中引用了 image 图片时，使用 `html-withimg-loader` 加载图片
-```
+```js
 {
   test:/\.html$/,
   use:'html-withimg-loader'
@@ -191,7 +191,7 @@ externals: {
 
 ## 多页应用
 通过将 `entry` 配置为对象打包多页应用, 同时可以通过 `new` 多个 `HtmlWebpackPlugin` 提供不同的 `html` 模板
-```
+```js
 let path = require('path');
 let HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
@@ -224,7 +224,7 @@ module.exports = {
 ## source-map 配置
 source-map 配置能帮助我们打包出源文件，调试线上代码很方便
 
-```
+```js
 let path = require('path');
 let HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
@@ -269,7 +269,7 @@ module.exports = {
 ## 三个功能小插件 cleanWebpackPlugin，copyWebpackPlugin，bannerPlugin
 当我们打包时可能需要先清除一些文件如 dist 目录; 打包时可能需要拷贝一些静态文件如微信开发时的鉴权 .txt 文件; 亦或是想在打包后的文件中留下到此一游的痕迹
 
-```
+```js
 let path = require('path');
 let HtmlWebpackPlugin = require('html-webpack-plugin');
 let CleanWebpackPlugin = require('clean-webpack-plugin');
@@ -316,7 +316,7 @@ module.exports = {
 
 ## 跨域问题
 开发时我们可能遇到跨域问题，可以直接通过 devServer 解决，也可单独起一个服务解决。本质都是服务器代理。
-```
+```js
 devServer:{
     // 1
     // proxy:{ // 重写的方式 把请求代理到 服务器上
@@ -356,7 +356,7 @@ app.listen(3000);
 ```
 
 ## resolve 别名
-```
+```js
 resolve:{ // 解析 第三方包 common
   modules: [path.resolve('node_modules')],
   extensions: ['.js','.css','.json','.vue'],
@@ -370,7 +370,7 @@ resolve:{ // 解析 第三方包 common
 
 ## 定义环境变量
 
-```
+```js
 new webpack.DefinePlugin({
   DEV: JSON.stringify('production'),   // console.log('dev')
   FLAG: 'true',
@@ -380,7 +380,7 @@ new webpack.DefinePlugin({
 
 ## 根据不同环境区分配置
 一般可以根据开发和生产环境分出三个配置文件, 使用 `smart` 合并。最后使用 `webpack -- --config webpack.prod.js` 或者在 `package.json` 中配置 `"build": "webpack --config webpack.prod.js"` 运行生产环境下的打包配置
-```
+```js
 // webpack.dev.js
 let {smart} = require('webpack-merge');
 let base = require('./webpack.base.js');
@@ -411,7 +411,7 @@ module.exports = smart(base,{
 
 ## noParse
 防止 webpack 解析指定文件的依赖关系，忽略大型的 library 可以提高构建性能。
-```
+```js
 module: {
   noParse: /jquery/, // 不去解析jquery中的依赖库
 }
@@ -420,7 +420,7 @@ module: {
 ## Ignoreplugin
 忽略某些文件，比如 `moment` 的很多语言包
 注意：此时需要手动引入所需的语言包
-```
+```js
 // Ignore all locale files of moment.js
 new webpack.IgnorePlugin(/^\.\/locale$/, /moment/)
 
@@ -430,7 +430,7 @@ import 'moment/locale/zh-cn'
 
 ## dllPlugin
 单独搞一个 `webpack.dll.js` 配置文件并运行 `npx webpack --config webpack.dll.js` 在 `dist` 目录下生成 bundle 文件，并在 html 模板中引入
-```
+```js
 let path = require('path');
 let webpack = require('webpack');
 module.exports = {
@@ -458,7 +458,7 @@ module.exports = {
 ```
 
 正常打包时还需要配置 `DllReferencePlugin` 
-```
+```js
 new webpack.DllReferencePlugin({
   manifest: path.resolve(__dirname, 'dist', 'manifest.json')
 }),
@@ -469,7 +469,7 @@ new webpack.DllReferencePlugin({
 多线程打包，提高打包速度。
 
 如果项目不大，速度反而会变慢！
-```
+```js
 let Happypack = require('happypack');
 
 module: {
@@ -510,7 +510,7 @@ plugins: [
 ## splitChunks 抽离公共代码
 把被复用多次的依赖抽离出来
 
-```
+```js
 module.exports = {
   // ...
   optimization:{              // commonChunkPlugins
@@ -546,7 +546,7 @@ module.exports = {
 
 ## 启用热更新
 
-```
+```js
 devServer: {
   hot:true, // 启用热更新
   // ...
@@ -569,7 +569,7 @@ if(module.hot){
 ## 懒加载
 通过 `import()` 方法动态引入模块，使用 `@babel/plugin-syntax-dynamic-import` 转换
 
-```
+```js
 module: {
   rules: [
     {
