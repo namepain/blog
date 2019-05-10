@@ -11,7 +11,7 @@
 - [koa源码阅读](./blogs/koa2/koa2源码阅读.md)
 - [redux源码阅读](./blogs/redux源码阅读/redux源码阅读.md)
 - [webpack常用配置](./blogs/webpack/配置webpack.md)
-- [webpack简单实现](./blogs/webpack/配置webpack.md)
+- [webpack简单实现](./blogs/webpack/实现webpack.md)
 - [h5适配方案](./blogs/h5适配方案.md)
 
 -----
