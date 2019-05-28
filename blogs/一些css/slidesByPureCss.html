@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>纯css实现轮播图</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    .wrapper {
+      width: 520px;
+      height: 380px;
+      margin: 200px auto;
+      overflow: hidden;
+    }
+    .slides-content {
+      height: 100%;
+      display: flex;
+      animation: slide 6.6s linear 2s infinite normal forwards;
+    }
+    .slides-item {
+      flex: 1 0 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      background: #f3f3f3;
+    }
+    .slides-item:nth-child(2) {
+      background: #f59797;
+    }
+    .slides-item:nth-child(3) {
+      background: #8b6969;
+    }
+
+    @keyframes slide {
+      0% { transform: translateX(0) }
+      /** .2s 完成过渡 */
+      3.03% { transform: translateX(-520px) }
+      /** 停顿 2s */
+      33.333% { transform: translateX(-520px) }
+      /** .2s 完成过渡 */
+      36.3636% { transform: translateX(-1040px) }
+      /** 停顿 2s */
+      66.6667% { transform: translateX(-1040px) }
+      /** .2s 完成过渡 */
+      69.69697% { transform: translateX(-1560px) }
+      /** 停顿 2s */
+      100% { transform: translateX(-1560px) }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="slides-content">
+      <div class="slides-item">
+        1
+      </div>
+      <div class="slides-item">
+        2
+      </div>
+      <div class="slides-item">
+        3
+      </div>
+      <div class="slides-item">
+        1
+      </div>
+    </div>
+  </div>
+</body>
+</html>

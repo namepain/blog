@@ -6,7 +6,7 @@
 - [实现简单的Vue](./blogs/实现%20Vue/index.js)
 - [实现简单的Vuex](./blogs/实现%20Vuex/实现简单的Vuex.md)
 - [如何实现dom diff](./blogs/domdiff/如何实现dom%20diff.md)
-- [http的一些概念](./blogs/HTTP/http缓存.md)
+- [http的一些概念](./blogs/HTTP/http概念.md)
 - [http缓存](./blogs/HTTP/http缓存.md)
 - [koa源码阅读](./blogs/koa2/koa2源码阅读.md)
 - [redux源码阅读](./blogs/redux源码阅读/redux源码阅读.md)
