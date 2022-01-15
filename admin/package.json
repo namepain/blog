@@ -16,7 +16,7 @@
     "babel-runtime": "^6.26.0",
     "element-ui": "^2.3.9",
     "highlight.js": "^9.12.0",
-    "marked": "^0.4.0",
+    "marked": "^4.0.10",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"
